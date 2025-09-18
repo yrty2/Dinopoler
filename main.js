@@ -173,10 +173,6 @@ window.addEventListener("keydown",e=>{
             copy2clipboard();
         }
     }
-    if(e.code=="KeyI"){
-        game.redcoral+=10;
-        upgradedecision();
-    }
     if(e.code=="KeyZ" || e.code=="Enter" || e.code=="Space"){
         if(!zclicked && modelLoaded){
         submit();
