@@ -1455,7 +1455,7 @@ function selectUpgrade(){
     deciding=false;
     upgrading=false;
 }
-function continue(){
+/*function continue(){
     game.continue++;
     game.hp=3;
-}
+}*/
