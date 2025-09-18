@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ダイノポーラー</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <link rel="icon" href="favicon.ico">
+    </head>
+    <style>
+        body{
+            background: black;
+            color:white;
+            font-size:20px;
+        }
+        .canvas{
+            position:absolute;
+            left:0px;
+            bottom:0px;
+        }
+        #pic{
+            text-align: center;
+        }
+        #cen{
+            text-align: center;
+        }
+        .sidebar {
+            font-size:30px;
+            position:absolute;
+            width: 330px;
+            height:1200px;
+            background-color: black;
+            box-sizing: border-box;
+            border: 2px solid white;
+        }
+        .content {
+        }
+        .innercontent {
+            top:120px;
+            position:absolute;
+            left:350px;
+        }
+        p1{
+            font-size: 50px;
+        }
+        lb{
+            color:rgb(144, 164, 170);
+        }
+    </style>
+    <body>
+        <audio id="BGM1" preload="auto">
+   <source src="Sounds/BGM/katsuo.mp3" type="audio/mp3">
+   <p>not supported</p>
+        </audio>
+        <audio id="BGM2" preload="auto">
+   <source src="Sounds/BGM/asthenosphere.mp3" type="audio/mp3">
+   <p>not supported</p>
+        </audio>
+        <audio id="BGM3" preload="auto">
+   <source src="Sounds/BGM/Dinopoler.mp3" type="audio/mp3">
+   <p>not supported</p>
+        </audio>
+        <canvas class="canvas" width="0" height="0"></canvas>
+        <div id="description">
+        <p1 id="pone"><img src="yirty2.webp" width=3% height=3%><lb>Yirty</lb>2　　　　　</p1><counter>今日のお客さん(未実装)人</counter>
+        <hr>
+
+        <div class="sidebar">Dinopoler ver0.1a<hr>
+        リーダーボード(websocketサーバーが必要)<br><input type="text" placeholder="名前を入力してください" /><input type="button" value="登録" /><br>順位.名前 スコア</div>
+        <div class="content">
+            <div class="innercontent">
+        <div id="pic">
+            <img src="headerimage.png" alt="Dinopoler/Created By Yirty2">
+        </div>
+        <div id="cen">
+            <br>
+            <br>Dinopoler　おたまじゃくし突進アクション<br>
+        画像クリックでスタート
+        </div>
+        <hr>
+        ＊どんなゲーム？＊<br>
+        <br>
+        おたまじゃくしが微生物に体当たりして潮だまりを生き残るゲームです。
+        <br><br>{ストーリー的な何か...5行くらい}
+        <hr>
+        ＊Screen Shots＊※開発段階の画像です<br>
+        <img src="sc1.png" width=50% height=50%>
+        </div>
+        </div>
+        </div>
+        <script type="text/javascript" src="../mathematics.lib.js"></script>
+        <script type="text/javascript" src="modelLoader.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+        <script type="text/javascript" src="gpu.js"></script>
+        <script type="text/javascript" src="BGMplayer.js"></script>
+    </body>
+</html>
