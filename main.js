@@ -168,7 +168,6 @@ window.addEventListener("keydown",e=>{
         }
     }
     if(e.code=="KeyT"){
-        game.tidalpower.range=2;
         if(transformed){
             copy2clipboard();
         }
