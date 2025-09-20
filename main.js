@@ -43,7 +43,7 @@ const itemList=["gem","jellygem","midnight","lightsphere","gun","fishgem"]
 var vertex=[];
 const game={
     combo:{
-        interval:100,
+        interval:130,
         timer:0,
         chain:0,
         scoreMultiplication:1.12,
@@ -64,10 +64,11 @@ const game={
     minradius:2.5,
     radius:3.5,
     enemy:0,
-    maxEnemy:10,
+    maxEnemy:15,
     item:0,
     maxItem:8,
-    hp:3,
+    hp:4,
+    maxhp:4,
     tidalpower:{
         speedmultiplication:4,
         value:100,
@@ -168,9 +169,14 @@ window.addEventListener("keydown",e=>{
         }
     }
     if(e.code=="KeyT"){
+        game.tidalpower.range=2;
         if(transformed){
             copy2clipboard();
         }
+    }
+    if(e.code=="KeyI"){
+        game.redcoral+=10;
+        upgradedecision();
     }
     if(e.code=="KeyZ" || e.code=="Enter" || e.code=="Space"){
         if(!zclicked && modelLoaded){
@@ -270,9 +276,9 @@ function gamestart(){
     add([0.95/aspect-0.3,0.9],"cube2",{name:"tidalpower2",dynamic:false,attribute:"util",hide:false,gray:false},0.6);
     add([0.95/aspect-0.4,0.9],"cube2",{name:"tidalpower1",dynamic:false,attribute:"util",hide:false,gray:false},0.6);
 
-    add([0.95/aspect-0.11,-0.8],"heart",{name:"life1",dynamic:false,attribute:"util",hide:false},0.6);
-    add([0.95/aspect-0.22,-0.8],"heart",{name:"life2",dynamic:false,attribute:"util",hide:false},0.6);
-    add([0.95/aspect-0.33,-0.8],"heart",{name:"life3",dynamic:false,attribute:"util",hide:false},0.6);
+    for(let k=0; k<game.maxhp; ++k){
+    add([0.95/aspect-0.11*k,-0.8],"heart",{name:"life"+(k+1),dynamic:false,attribute:"util",hide:false},0.6);
+    }
     play("スタート",1);
     setBGM("BGM1",0.1,true);
 }
@@ -702,7 +708,7 @@ timerevent(e.info.boom,a=>{
         game.hidan.speed=velocity+0.01;
         game.hidan.angle=Math.atan2(camera[1]+e.mov[1],camera[0]+e.mov[0]);
         game.hp--;
-        play("hidan",0.3)
+        play("hidan",0.3);
         if(game.hp==0){
             ending();
         }
@@ -980,27 +986,15 @@ function itemAction(e){
     }
 }
 function utilAction(e){
-    if(e.info.name=="life1"){
-        if(game.hp<1){
+    for(let k=0; k<game.maxhp; ++k){
+    if(e.info.name=="life"+(k+1)){
+        if(game.hp<k+1){
             e.info.hide=true;
         }else{
             e.info.hide=false;
         }
     }
-    if(e.info.name=="life2"){
-        if(game.hp<2){
-            e.info.hide=true;
-        }else{
-            e.info.hide=false;
-        }
-    }
-    if(e.info.name=="life3"){
-        if(game.hp<3){
-            e.info.hide=true;
-        }else{
-            e.info.hide=false;
-        }
-    }
+}
     for(let k=1; k<6; ++k){
         if(game.tidalpower.value>k*game.tidalpower.max/6 && e.info.name==`tidalpower${k}` && e.info.gray){
                 modelchange(e.seed,"cube2");
@@ -1096,7 +1090,7 @@ function nextLevel(){
     if(math.mod(game.phase,3)==0){
         upgradedecision();
     }else{
-        if(game.hp<3){
+        if(game.hp<game.maxhp){
             game.hp++;
         }
     }
@@ -1188,7 +1182,7 @@ function spawnEnemy(pos){
         });
         spawned=true;
     }
-    if(seed>1 && Math.random()>0.993/game.goldenRate){
+    if(seed>1 && Math.random()<0.007*game.goldenRate){
         add(pos,"golden1",{
             name:"golden_enemy",
             attribute:"enemy",
@@ -1266,6 +1260,7 @@ function copy2clipboard(){
     );
 }
 function decision(){
+    play("てれれんアッパー",1);
     decdisplay=[0];
     select=0;
     deciding=true;
@@ -1296,6 +1291,7 @@ function decision(){
 }
 const upgradeList=["tidalpower","goldenSpawn","hp2","itemSpawn","enemySpawn"];
 function upgradedecision(){
+    play("てれれんアッパー",1);
     upgrading=true;
     decdisplay=[0];
     select=0;
@@ -1377,8 +1373,9 @@ for(const e of entity){
 }
 }
 function selectItem(){
+    play("てれれれれれん",1);
     if(select==0){
-        if(game.hp<3){
+        if(game.hp<game.maxhp){
             game.hp++;
         }
     }else{
@@ -1413,8 +1410,9 @@ function selectItem(){
     deciding=false;
 }
 function selectUpgrade(){
+    play("てれれれれれん",1);
     if(select==0){
-        if(game.hp<3){
+        if(game.hp<game.maxhp){
             game.hp++;
         }
     }else{
@@ -1423,7 +1421,11 @@ function selectUpgrade(){
         }
     game.items.push(decdisplay[select]);
     if(decdisplay[select]=="hp2"){
-        game.hp=3;
+        for(let k=0; k<2; ++k){
+        if(game.hp<game.maxhp){
+            game.hp++
+        }
+    }
     }
     if(decdisplay[select]=="tidalpower"){
         game.tidalpower.max+=20;
@@ -1452,5 +1454,5 @@ function selectUpgrade(){
 }
 /*function continue(){
     game.continue++;
-    game.hp=3;
+    game.hp=game.maxhp;
 }*/
