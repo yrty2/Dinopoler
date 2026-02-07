@@ -66,6 +66,8 @@ async function getrecord(){
 function relinquish(){
     storage.setItem("population",0);
     population=0;
+    storage.setItem("exss",0);
+    exss=0;
     storage.setItem("leaderboard",[]);
     leaderboard=[];
 }
